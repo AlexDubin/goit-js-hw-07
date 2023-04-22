@@ -30,14 +30,15 @@ galleryImg.addEventListener("click", (event) => {
     const href = linkEl.href;
     instance = basicLightbox.create(`<img src="${href}" />`);
     instance.show();
+
+    window.addEventListener(
+      "keydown",
+      (evt) => {
+        if (evt.code !== "Escape") return;
+        instance.close();
+      },
+      { once: true }
+    );
   }
 });
 
-const handleKeyDown = (event) => {
-  if (event.code === "Escape" && instance && instance.visible()) {
-    instance.hide();
-    document.removeEventListener("keydown", handleKeyDown);
-  }
-};
-
-document.addEventListener("keydown", handleKeyDown);
